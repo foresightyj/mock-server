@@ -28,8 +28,9 @@
       async function fetchPosts() {
         const res = await fetch('/posts');
         const posts = await res.json();
-        console.assert(Array.isArray(posts), 'posts not array');
-        return posts;
+        console.assert(posts.success, "fetch not successful");
+        console.assert(Array.isArray(posts.data), 'posts not array');
+        return posts.data;
       }
 
       fetchPosts().then(displayPosts);

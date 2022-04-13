@@ -1,8 +1,8 @@
 import { join } from 'path'
 import { Low, JSONFile } from 'lowdb'
 import { Injectable, Scope } from '@nestjs/common';
-import { Post } from 'src/posts/posts.js';
 import { chain } from "lodash-es";
+import { Post } from '../posts/posts.js';
 import { randomSleep } from '../utils.js';
 
 type DbSchema = {

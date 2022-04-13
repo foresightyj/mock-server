@@ -1,4 +1,4 @@
-import random from "lodash/random";
+import { random } from "lodash-es";
 
 export function sleep(ms: number) {
   return new Promise((res) => {
