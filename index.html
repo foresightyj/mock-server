@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mock server</title>
+  </head>
+  <body>
+    <h1>Thanks for using Mock server</h1>
+    <ul id="posts"></ul>
+    <button id="create-post">Click button to create a post randomly</button>
+    <script>
+      function displayPosts(posts) {
+        const container = document.querySelector('#posts');
+        while (container.lastElementChild) {
+          container.removeChild(container.lastElementChild);
+        }
+        const frag = document.createDocumentFragment();
+        posts.forEach((p) => {
+          const li = document.createElement('li');
+          li.innerText = p.title;
+          frag.append(li);
+        });
+        container.appendChild(frag);
+      }
+      async function fetchPosts() {
+        const res = await fetch('/posts');
+        const posts = await res.json();
+        console.assert(Array.isArray(posts), 'posts not array');
+        return posts;
+      }
+
+      fetchPosts().then(displayPosts);
+
+      document
+        .querySelector('#create-post')
+        .addEventListener('click', async () => {
+          const res = await fetch('/posts', {
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8',
+            },
+            method: 'POST',
+            body: JSON.stringify({
+              title: 'random post: ' + new Date(),
+            }),
+          });
+          const data = await res.json();
+          console.log('created post', data);
+
+          const posts = await fetchPosts();
+          displayPosts(posts);
+        });
+    </script>
+  </body>
+</html>
