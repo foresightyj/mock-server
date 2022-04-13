@@ -13,7 +13,6 @@ export function ok<T>(data: T): ApiResponse<T> {
     }
 }
 
-
 export function fail(error: Error, code = 400): ApiResponse<any> {
     return {
         success: false,
