@@ -11,12 +11,14 @@ export class PostsService {
         const chain = await this.db.chain();
         return chain.get("posts").value();
     }
+
     async getPost(id: number): Promise<Post | undefined> {
         assert(typeof id === "number", "id falsy");
         assert(id > 0, "id must be positive");
         const chain = await this.db.chain()
         return chain.get("posts").find({ id }).value();
     }
+
     async createPost(post: CreatePostModel): Promise<Post> {
         const chain = await this.db.chain();
         const maxId = chain.get("posts").map(p => p.id).max().value();

@@ -6,7 +6,7 @@ export function sleep(ms: number) {
   });
 }
 
-export function randomSleep(maxMs = 2000) {
+export function randomSleep(maxMs = 1000) {
   const r = random(maxMs, false);
   return sleep(r);
 }

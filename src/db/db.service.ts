@@ -3,6 +3,7 @@ import { Low, JSONFile } from 'lowdb'
 import { Injectable, Scope } from '@nestjs/common';
 import { Post } from 'src/posts/posts.js';
 import { chain } from "lodash-es";
+import { randomSleep } from '../utils.js';
 
 type DbSchema = {
     posts: Post[] // Expect posts to be an array of strings
@@ -19,6 +20,7 @@ const DEFAULT_POSTS: Post[] = [
     },
 ];
 
+//see lowdb doc: [lowdb - npm]( https://www.npmjs.com/package/lowdb )
 
 @Injectable({ scope: Scope.DEFAULT })
 export class DbService {
@@ -28,6 +30,7 @@ export class DbService {
     }
 
     async chain() {
+        await randomSleep();
         return chain((await this.db).data);
     }
 
