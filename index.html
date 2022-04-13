@@ -8,6 +8,7 @@
   </head>
   <body>
     <h1>Thanks for using Mock server</h1>
+    <input type="text" placeholder="title" id="title" />
     <ul id="posts"></ul>
     <button id="create-post">Click button to create a post randomly</button>
     <script>
@@ -42,7 +43,10 @@
             },
             method: 'POST',
             body: JSON.stringify({
-              title: 'random post: ' + new Date(),
+              title:
+                (document.getElementById('title').value ?? 'random title') +
+                ' ' +
+                new Date(),
             }),
           });
           const data = await res.json();

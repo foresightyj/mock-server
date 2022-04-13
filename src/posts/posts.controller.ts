@@ -13,9 +13,10 @@ export class PostsController {
     }
 
     @Get(':id')
-    async getPost(@Param('id', ParseIntPipe) id: number) {
+    async getPost(@Param('id', ParseIntPipe) id: number): Promise<Post> {
         const post = await this.postService.getPost(id);
         if (!post) throw new HttpException(`post with id ${id} cannot be found`, HttpStatus.NOT_FOUND);
+        return post;
     }
 
     @HttpPost()
